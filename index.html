@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 FIFA 世界杯</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 360px;
+        }
+        .ball { font-size: 4rem; margin-bottom: 1rem; }
+        h1 { color: #fff; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .sub { color: rgba(255,255,255,0.7); font-size: 0.875rem; margin-bottom: 2rem; }
+        .card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .tip { color: #fbbf24; font-size: 1.1rem; font-weight: bold; margin-bottom: 1rem; }
+        .step { color: rgba(255,255,255,0.9); font-size: 0.875rem; line-height: 2; }
+        .step b { color: #fff; }
+        .arrow {
+            display: inline-block;
+            color: #fbbf24;
+            font-size: 2rem;
+            animation: bounce 1.2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .dots {
+            color: rgba(255,255,255,0.5);
+            font-size: 1.5rem;
+            letter-spacing: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        /* 非微信浏览器：显示跳转提示 */
+        .redirecting { color: rgba(255,255,255,0.8); font-size: 0.875rem; }
+        .btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 2rem;
+            background: #fbbf24;
+            color: #1a1a2e;
+            font-weight: bold;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 微信浏览器：显示引导 -->
+    <div id="wechat-guide" style="display:none;" class="container">
+        <div class="ball">⚽</div>
+        <h1>2026 FIFA 世界杯</h1>
+        <p class="sub">赛事直播 · 实时赔率</p>
+        <div class="card">
+            <p class="tip">请点击右上角 · · ·</p>
+            <p class="dots">┄┄┄┄┄</p>
+            <p class="step">选择 <b>「在浏览器中打开」</b></p>
+            <p class="step" style="color:rgba(255,255,255,0.5); font-size:0.75rem;">Safari / Chrome / 系统浏览器均可</p>
+        </div>
+        <div class="arrow">↑</div>
+    </div>
+
+    <!-- 非微信浏览器：自动跳转 -->
+    <div id="redirect" style="display:none;" class="container">
+        <div class="ball">⚽</div>
+        <h1>2026 FIFA 世界杯</h1>
+        <p class="sub">正在跳转...</p>
+        <p class="redirecting">如果没有自动跳转，请点击下方按钮</p>
+        <a id="go-btn" class="btn" href="https://wc2026.cms.x24hr.com">进入网站</a>
+    </div>
+
+    <script>
+        var ua = navigator.userAgent.toLowerCase();
+        var isWechat = ua.indexOf('micromessenger') > -1;
+        var target = 'https://wc2026.cms.x24hr.com';
+
+        if (isWechat) {
+            document.getElementById('wechat-guide').style.display = 'block';
+        } else {
+            document.getElementById('redirect').style.display = 'block';
+            // 延迟跳转，给用户看到提示的时间
+            setTimeout(function() {
+                window.location.href = target;
+            }, 500);
+        }
+    </script>
+</body>
+</html>
